@@ -13,12 +13,19 @@ public class Player : MonoBehaviour
     public float forceJump;
     private float _currentSpeed;
 
-    [Header("Animation")]
+    [Header("Animation Setup")]
     public float jumpScaleY = 1.5f;
     public float jumpScaleX = .7f;
 
     public float animationDuration = .3f;
     public Ease ease = Ease.OutBounce;
+
+    [Header("Animation Player")]
+    public string boolRun = "Run";
+    public Animator animator;
+    public float duration = .5f;
+    private Vector3 _invertPlayerScale = new Vector3(-1, 1, 1);
+    private Vector3 _normalPlayerScale = new Vector3(1, 1, 1);
 
     private void Update()
     {
@@ -30,11 +37,33 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.D))
         {
-            myRigidBody.velocity = new Vector2(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) ? runSpeed : speed, myRigidBody.velocity.y);
+            myRigidBody.velocity = new Vector2(Input.GetKey(KeyCode.LeftShift) ||
+            Input.GetKey(KeyCode.RightShift) ? runSpeed : speed, myRigidBody.velocity.y);
+
+            if (myRigidBody.transform.localScale.x != 1)
+            {
+                DOTween.Kill(myRigidBody.transform);
+                myRigidBody.transform.DOScaleX(1, duration);
+            }
+            animator.SetBool(boolRun, true);
+
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            myRigidBody.velocity = new Vector2(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) ? -runSpeed : -speed, myRigidBody.velocity.y);
+            myRigidBody.velocity = new Vector2(Input.GetKey(KeyCode.LeftShift) ||
+            Input.GetKey(KeyCode.RightShift) ? -runSpeed : -speed, myRigidBody.velocity.y);
+
+            if (myRigidBody.transform.localScale.x != -1)
+            {
+                DOTween.Kill(myRigidBody.transform);                
+                myRigidBody.transform.DOScaleX(-1, duration);
+            }
+            animator.SetBool(boolRun, true);
+
+        }
+        else
+        {
+            animator.SetBool(boolRun, false);
         }
 
         if (myRigidBody.velocity.x > 0)
