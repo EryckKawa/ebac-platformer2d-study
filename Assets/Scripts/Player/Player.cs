@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
 
             DOTween.Kill(myRigidBody.transform);
 
-            HandScaleJump();
+            //HandScaleJump();
         }
     }
 
