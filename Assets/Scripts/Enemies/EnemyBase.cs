@@ -12,6 +12,8 @@ public class EnemyBase : MonoBehaviour
     // Quantidade de dano causado pelo inimigo ao atacar
     public int damage = 10;
 
+    public HealthBase healthBase;
+
     // Método chamado quando ocorre uma colisão com outro objeto 2D
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -23,10 +25,10 @@ public class EnemyBase : MonoBehaviour
         {
             // Causa dano ao objeto colidido chamando o método Damage do componente HealthBase
             health.Damage(damage);
+            // Chama a animação de ataque do inimigo
+            PlayerAttackAnimation();
         }
-        
-        // Chama a animação de ataque do inimigo
-        PlayerAttackAnimation();
+
     }
 
     // Método para iniciar a animação de ataque do inimigo
@@ -34,5 +36,10 @@ public class EnemyBase : MonoBehaviour
     {
         // Define o gatilho de ataque no Animator para iniciar a animação correspondente
         animator.SetTrigger(triggerToAttack);
+    }
+
+    public void Damage(int amount)
+    {
+        healthBase.Damage(amount);
     }
 }
