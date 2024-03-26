@@ -862,6 +862,11 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 4402658883949824882, guid: 3de838754c767a446a5473969062a84e, type: 3}
   m_PrefabInstance: {fileID: 1843648138}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &582261613 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8835229685202505509, guid: 00afc9fb4087652419d090da0b825d97, type: 3}
+  m_PrefabInstance: {fileID: 1100875116}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &605750658
 GameObject:
   m_ObjectHideFlags: 0
@@ -1180,6 +1185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myRigidBody: {fileID: 706473710}
+  healthBase: {fileID: 706473715}
   friction: {x: -0.4, y: 0}
   speed: 10
   runSpeed: 15
@@ -1189,6 +1195,7 @@ MonoBehaviour:
   animationDuration: 0.3
   ease: 30
   boolRun: Run
+  deathTrigger: Death
   animator: {fileID: 1289501184}
   duration: 0.1
 --- !u!114 &706473715
@@ -1204,7 +1211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startLife: 10
-  isDestroyOnKill: 1
+  isDestroyOnKill: 0
   delayToKill: 0.2
   _flashColor: {fileID: 1289501185}
 --- !u!1 &772526149
@@ -1315,7 +1322,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 549611539}
   triggerToAttack: Attack
-  damage: 2
+  triggerToDeath: Death
+  timeToDeath: 1
+  damage: 10
   healthBase: {fileID: 772526155}
 --- !u!50 &772526154
 Rigidbody2D:
@@ -2296,6 +2305,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 647433364}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8835229685202505509, guid: 00afc9fb4087652419d090da0b825d97, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1289501186}
     - targetCorrespondingSourceObject: {fileID: 3172524715885381094, guid: 00afc9fb4087652419d090da0b825d97, type: 3}
       insertIndex: -1
       addedObject: {fileID: 194152749}
@@ -2862,12 +2874,25 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8224445722484832072, guid: 00afc9fb4087652419d090da0b825d97, type: 3}
   m_PrefabInstance: {fileID: 1100875116}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 582261613}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8f974cf816e08c4eae1c743b008a401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1289501186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582261613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6418d85c93bd1cf428415a4a05d443b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 706473714}
 --- !u!212 &1349248218 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 4058282757918593861, guid: 3de838754c767a446a5473969062a84e, type: 3}
