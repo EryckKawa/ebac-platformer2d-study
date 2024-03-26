@@ -9,11 +9,27 @@ public class EnemyBase : MonoBehaviour
     public Animator animator;
     // Nome do gatilho de animação de ataque no Animator
     public string triggerToAttack = "Attack";
-    // Quantidade de dano causado pelo inimigo ao atacar
-    public int damage = 10;
+    public string triggerToDeath = "Death";
 
+    // Quantidade de dano causado pelo inimigo ao atacar
+    public float timeToDeath= 1f;
+    public int damage = 10;
     public HealthBase healthBase;
 
+    void Awake()
+    {
+        if (healthBase != null)
+        {
+            healthBase.OnKill += OnEnemyKill;
+        }
+    }
+
+    private void OnEnemyKill()
+    {
+        healthBase.OnKill -= OnEnemyKill;
+        PlayerDeathAnimation();
+        Destroy(gameObject, timeToDeath);
+    }
     // Método chamado quando ocorre uma colisão com outro objeto 2D
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -37,6 +53,12 @@ public class EnemyBase : MonoBehaviour
         // Define o gatilho de ataque no Animator para iniciar a animação correspondente
         animator.SetTrigger(triggerToAttack);
     }
+    private void PlayerDeathAnimation()
+    {
+        // Define o gatilho de ataque no Animator para iniciar a animação correspondente
+        animator.SetTrigger(triggerToDeath);
+    }
+
 
     public void Damage(int amount)
     {
