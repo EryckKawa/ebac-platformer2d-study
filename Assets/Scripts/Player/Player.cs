@@ -6,12 +6,13 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Rigidbody2D myRigidBody;
+    public HealthBase healthBase;
+
     [Header("Speed Setup")]
     public Vector2 friction = new Vector2(-.1f, 0);
     public float speed;
     public float runSpeed;
     public float forceJump;
-    private float _currentSpeed;
 
     [Header("Animation Setup")]
     public float jumpScaleY = 1.5f;
@@ -22,15 +23,28 @@ public class Player : MonoBehaviour
 
     [Header("Animation Player")]
     public string boolRun = "Run";
+    public string deathTrigger = "Death";
     public Animator animator;
     public float duration = .5f;
-    private Vector3 _invertPlayerScale = new Vector3(-1, 1, 1);
-    private Vector3 _normalPlayerScale = new Vector3(1, 1, 1);
+
+    private void Awake()
+    {
+        if (healthBase != null)
+        {
+            healthBase.OnKill += PlayerOnKill;
+        }
+    }
+
+    private void PlayerOnKill()
+    {
+        healthBase.OnKill -= PlayerOnKill;
+        animator.SetTrigger(deathTrigger);
+    }
 
     private void Update()
     {
         HandleMovement();
-        HandleJump();
+        //HandleJump();
     }
 
     private void HandleMovement()
@@ -55,7 +69,7 @@ public class Player : MonoBehaviour
 
             if (myRigidBody.transform.localScale.x != -1)
             {
-                DOTween.Kill(myRigidBody.transform);                
+                DOTween.Kill(myRigidBody.transform);
                 myRigidBody.transform.DOScaleX(-1, duration);
             }
             animator.SetBool(boolRun, true);
@@ -85,7 +99,7 @@ public class Player : MonoBehaviour
 
             DOTween.Kill(myRigidBody.transform);
 
-            HandScaleJump();
+            //HandScaleJump();
         }
     }
 
@@ -93,5 +107,10 @@ public class Player : MonoBehaviour
     {
         myRigidBody.transform.DOScaleY(jumpScaleY, animationDuration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
         myRigidBody.transform.DOScaleX(jumpScaleX, animationDuration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+    }
+
+    public void DestroyMe()
+    {
+        Destroy(gameObject);
     }
 }
