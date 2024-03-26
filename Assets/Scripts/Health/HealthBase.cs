@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthBase : MonoBehaviour
 {
+    public Action OnKill;
+
     // Vida inicial do objeto
     public int startLife = 10;
     // Indica se o objeto deve ser destruído ao ser morto
@@ -78,5 +81,7 @@ public class HealthBase : MonoBehaviour
             // Se sim, destrói o objeto após um tempo de espera
             Destroy(gameObject, delayToKill);
         }
+
+        OnKill?.Invoke();
     }
 }
