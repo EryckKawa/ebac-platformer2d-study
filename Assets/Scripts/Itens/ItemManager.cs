@@ -8,7 +8,7 @@ using TMPro;
 public class ItemManager : Singleton<ItemManager>
 {
     // Variável para armazenar a quantidade de moedas
-    public int coins;
+    public SOint coins;
     public TextMeshProUGUI uiTextCoins;
 
     // Start é chamado antes do primeiro frame
@@ -22,19 +22,19 @@ public class ItemManager : Singleton<ItemManager>
     private void Reset()
     {
         // Define a quantidade inicial de moedas como zero
-        coins = 0;
-        UpdateCoins();
+        coins.value = 0;
+        //UpdateCoins();
     }
 
     // Método para adicionar uma quantidade específica de moedas
     public void AddAmount(int amount = 1)
     {
         // Adiciona a quantidade especificada à variável coins
-        coins += amount;
-        UpdateCoins();
+        coins.value += amount;
+        //UpdateCoins();
     }
     void UpdateCoins()
     {
-        UIInGameManager.UpdateTextCoins(coins.ToString());
+        //UIInGameManager.UpdateTextCoins(coins.ToString());
     }
 }
