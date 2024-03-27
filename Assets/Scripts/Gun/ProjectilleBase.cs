@@ -9,12 +9,15 @@ public class ProjectilleBase : MonoBehaviour
     public Vector3 direction;
     public float side = 1;
     [SerializeField] private int bulletDamage = 3;
+    [SerializeField] private float timToDestroy = .7f;
+
 
     // Método chamado a cada quadro de atualização
     void Update()
     {
         // Move o projétil na direção especificada
         transform.Translate(direction * Time.deltaTime * side);
+        timeToDestroy();
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -26,5 +29,10 @@ public class ProjectilleBase : MonoBehaviour
             enemy.Damage(bulletDamage);
             Destroy(gameObject);
         }
+    }
+
+    void timeToDestroy()
+    {
+        Destroy(gameObject, timToDestroy);
     }
 }
