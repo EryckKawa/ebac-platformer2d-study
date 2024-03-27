@@ -6,6 +6,7 @@ using DG.Tweening;
 [CreateAssetMenu(menuName = "ebac-platformer2d-study/SOPlayerSetup")]
 public class SOPlayerSetup : ScriptableObject
 {
+    //public Animator animator;
     
     [Header("Speed Setup")]
     public Vector2 friction = new Vector2(-.1f, 0);
