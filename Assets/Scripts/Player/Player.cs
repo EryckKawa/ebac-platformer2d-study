@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         HandleMovement();
-        //HandleJump();
+        HandleJump();
     }
 
     private void HandleMovement()
