@@ -6,7 +6,15 @@ public class ItemColectableBase : MonoBehaviour
 {
     // Tag que o objeto deve comparar para determinar se foi coletado pelo player
     public string tagToCompare = "Player";
+    public ParticleSystem particleSystem;
 
+    void Awake()
+    {
+        if (particleSystem != null)
+        {
+            particleSystem.transform.SetParent(null);
+        }
+    }
     // Método chamado quando outro objeto com colisor entra em contato com este objeto
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -21,16 +29,15 @@ public class ItemColectableBase : MonoBehaviour
     // Método virtual que define a ação de coletar o item
     protected virtual void Collect()
     {
-        // Chama o método OnCollect() para realizar ações específicas de coleta
+        gameObject.SetActive(false);
         OnCollect();
     }
 
-    // Método virtual que define ações específicas de coleta
     protected virtual void OnCollect()
     {
-        // Destroi o objeto após ser coletado
-        Destroy(gameObject);
-        // Exibe uma mensagem de log indicando que o objeto foi destruído após a coleta
-        Debug.Log("Destruiuu");
+        if (particleSystem != null)
+        {
+            particleSystem.Play();
+        }
     }
 }
