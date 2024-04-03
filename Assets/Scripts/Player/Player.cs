@@ -123,6 +123,8 @@ public class Player : MonoBehaviour
     // Método para reproduzir o efeito de partículas do salto
     private void PlayJumpVFX()
     {
+        //VFXManager.Instance.PlayVFXByType(VFXManager.VFXType.JUMP, transform.position);
+
         if (jumpVFX != null)
         {
             jumpVFX.Play();
