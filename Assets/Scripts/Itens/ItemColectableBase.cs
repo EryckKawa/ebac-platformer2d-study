@@ -6,7 +6,7 @@ public class ItemColectableBase : MonoBehaviour
 {
     // Tag que o objeto deve comparar para determinar se foi coletado pelo player
     public string tagToCompare = "Player";
-    public ParticleSystem particleSystem;
+    public new ParticleSystem particleSystem;
 
     void Awake()
     {
