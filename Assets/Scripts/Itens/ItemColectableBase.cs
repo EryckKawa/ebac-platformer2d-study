@@ -7,6 +7,11 @@ public class ItemColectableBase : MonoBehaviour
     // Tag que o objeto deve comparar para determinar se foi coletado pelo player
     public string tagToCompare = "Player";
     public new ParticleSystem particleSystem;
+    public GameObject graphicItem;  
+    public float timeToHide;
+
+    [Header("Sounds")]
+    public AudioSource audioSource;
 
     void Awake()
     {
@@ -29,8 +34,12 @@ public class ItemColectableBase : MonoBehaviour
     // Método virtual que define a ação de coletar o item
     protected virtual void Collect()
     {
-        gameObject.SetActive(false);
-        OnCollect();
+        if (graphicItem != null)
+        {
+            graphicItem.SetActive(false);
+            Invoke("HideObject", timeToHide);
+            OnCollect();
+        }
     }
 
     protected virtual void OnCollect()
@@ -39,5 +48,14 @@ public class ItemColectableBase : MonoBehaviour
         {
             particleSystem.Play();
         }
+        if (audioSource != null && audioSource.enabled)
+        {
+            audioSource.Play();
+        }
+    }
+    
+    private void HideObject()
+    {
+        gameObject.SetActive(false);
     }
 }
