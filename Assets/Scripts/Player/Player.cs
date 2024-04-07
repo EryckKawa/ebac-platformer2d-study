@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             myRigidBody.velocity = new Vector2(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) ? sOPlayerSetup.runSpeed : sOPlayerSetup.speed, myRigidBody.velocity.y);
             if (myRigidBody.transform.localScale.x != 1)
@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
             }
             _currentPlayer.SetBool(sOPlayerSetup.boolRun, true);
         }
-        else if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             myRigidBody.velocity = new Vector2(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) ? -sOPlayerSetup.runSpeed : -sOPlayerSetup.speed, myRigidBody.velocity.y);
             if (myRigidBody.transform.localScale.x != -1)
