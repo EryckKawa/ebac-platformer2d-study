@@ -8,10 +8,14 @@ public class ProjectilleBase : MonoBehaviour
     // Direção do projétil
     public Vector3 direction;
     public float side = 1;
+    public AudioSource audioSource;
     [SerializeField] private int bulletDamage = 3;
     [SerializeField] private float timToDestroy = .7f;
 
-
+    void Start()
+    {
+        Play();    
+    }
     // Método chamado a cada quadro de atualização
     void Update()
     {
@@ -34,5 +38,10 @@ public class ProjectilleBase : MonoBehaviour
     void timeToDestroy()
     {
         Destroy(gameObject, timToDestroy);
+    }
+
+    void Play()
+    {
+        audioSource.Play();
     }
 }
